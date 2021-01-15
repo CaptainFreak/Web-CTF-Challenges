@@ -1,0 +1,70 @@
+<section class="flex justify-center h-full flex-wrap flex-col content-center">
+	<header class="text-center">
+		<h1 class="text-4xl text-left">Profiler <i class="fa fa-user-circle text-red-400" aria-hidden="true"></i></h1>
+		
+		<p class="mt-2 text-sm pl-16">... a lame af open source profiler by lame-entrepreneur-try-hards.</p>
+	</header>
+	<section class="mt-14">
+		 
+		<section id="content">
+			{{#if name}}
+				
+				<div class="bg-gray-100 rounded-xl flex justify-between">
+					<div class="w-1/3">
+						<img src="https://ui-avatars.com/api/?name={{name}}&background=03cffc&color=ffffff" class="rounded-l-xl h-full w-full">
+					</div>
+					<div class="w-full p-4">
+						<blockquote class="my-2"><p class="text-lg font-semibold">"{{bio}}"</p></blockquote>
+						<p class="text-green-600 ml-2">{{name}}</p>
+						<p class="text-gray-500 ml-2">{{position}}</p>
+					</div>
+					
+				</div>
+			{{else}}
+			<form onsubmit='return onSubmit(this)'>
+				<div class="mt-2">
+					<label>Name</label><br/>
+					<input type="text" name="name" class="w-full border border-black rounded outline-none p-2">
+				</div>
+				<div class="mt-2">
+					<label>Bio</label><br/>
+					<textarea class="text-sm w-full border border-black rounded outline-none p-2"
+					placeholder="Insert JSON string here."name="bio"
+					rows="5" 
+					></textarea>
+				</div>
+				<div class="mt-2">
+					<label>Position</label><br/>
+					<input type="text" name="position" class="w-full border border-black rounded outline-none p-2">
+				</div>
+				<div class="mt-4 flex justify-end">
+					<button class="uppercase px-8 py-2 rounded border border-green-600 text-green-600 max-w-max shadow-sm hover:shadow-lg" type="submit">Submit</button>
+				</div>
+			</form>
+			<script type="text/javascript">
+				function onSubmit( form ){
+					var data = $(form).serializeArray();
+					var formObject = { profile : {} };
+					$.each(data,
+					    function(i, v) {
+					        formObject.profile[v.name] = v.value;
+					    });
+					$.ajax({
+					    type: 'POST',
+					    url: '/',
+					    data: JSON.stringify(formObject), // or JSON.stringify ({name: 'jonas'}),
+					    success: function(data, textStatus, jqXHR) { 
+					    	document.write(jqXHR.responseText); 
+					    },
+					    contentType: "application/json",
+					    dataType: 'html'
+					});
+					return false; //don't submit
+				}
+
+			</script>
+			{{/if}}
+		</section>
+		
+	</section>
+</section>
