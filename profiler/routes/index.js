@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var beautify = require("json-beautify");
 
 const flag = "cfreak{this is not actual flag!}"
 
